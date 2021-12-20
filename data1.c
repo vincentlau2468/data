@@ -1,5 +1,5 @@
-data#include <stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <string.h>
 typedef struct student
 {
     char id[10];
@@ -15,8 +15,9 @@ int main(void)
     int flag = 0;
     char choice;
     char idcheck[100];
-    float average[100] = {0};
+    float average[100];
     Student data[10];
+    Student temp[10] = {0};
     scanf("%d", &sum);
     for (int i = 0; i < sum; i++)
     {
@@ -27,10 +28,12 @@ int main(void)
         scanf("%d", &data[i].eng);
     }
     for (int i = 0; i < sum; i++)
-    {
-        average[i] += ((data[i].math + data[i].code + data[i].eng) / 3);
+    {   average[i]=0;
+        average[i] +=((data[i].math + data[i].code + data[i].eng));
+        average[i] /= 3;
     }
-    while(1){
+    while (1)
+    {
 
         printf("===== menu =====\n");
         printf("f: find specific student data\n");
@@ -78,60 +81,72 @@ int main(void)
             }
             break;
 
-        case 'b':
-            
+        case 'b':{
+
             for (int i = 0; i < sum; i++)
             {
                 printf("%s\t", data[i].id);
                 printf("%s\t", data[i].name);
-                printf("%f\n", average[i]);
+                printf("%.2f\n", average[i]);
             }
-            break;
-        case 'a':  
-            
-            struct student temp;
-            
-            for(int j=0;j<sum;j++){
-                for(int k=0;k<sum-1;k++){
-                    if(average[k]>average[k+1]){
-                        float hold =average[k];
-                        temp=data[k];
-                        average[k]=average[k+1];
-                        data[k]=data[k+1];
-                        average[k+1]=hold;
-                        data[k+1]=temp;
+            break;}
+        case 'a':
+
+            for (int j = 0; j < sum; j++)
+            {
+                for (int k = 0; k < sum - 1; k++)
+                {
+                    if (average[k] > average[k + 1])
+                    {
+                        float hold = average[k];
+                        temp[k] = data[k];
+                        average[k] = average[k + 1];
+                        data[k] = data[k + 1];
+                        average[k + 1] = hold;
+                        data[k + 1] = temp[k];
                     }
                 }
             }
-            for(int i=0;i<sum;i++){
-               printf("%s\t", data[i].id);
+            for (int i = 0; i < sum; i++)
+            {
+                printf("%s\t", data[i].id);
                 printf("%s\t", data[i].name);
                 printf("%d\t", data[i].math);
                 printf("%d\t", data[i].code);
                 printf("%d\t", data[i].eng);
                 puts("");
-            }break;
-            
+            }
+            break;
+
         case 'd':
 
-            for(int j=0;j<sum;j++){
-                for(int k=0;k<sum-1;k++){
-                    if(average[j]<average[j+1]){
-                        float hold =average[j];
-                        average[j]=average[j+1];
-                        average[j+1]=hold;
+            for (int j = 0; j < sum; j++)
+            {
+                for (int k = 0; k < sum - 1; k++)
+                {
+                    if (average[k] < average[k + 1])
+                    {
+                        float hold = average[k];
+                        temp[k] = data[k];
+                        average[k] = average[k + 1];
+                        data[k] = data[k + 1];
+                        average[k + 1] = hold;
+                        data[k + 1] = temp[k];
                     }
                 }
             }
-            for(int i=0;i<sum;i++){
-               printf("%s\t", data[i].id);
+            for (int i = 0; i < sum; i++)
+            {
+                printf("%s\t", data[i].id);
                 printf("%s\t", data[i].name);
                 printf("%d\t", data[i].math);
                 printf("%d\t", data[i].code);
                 printf("%d\t", data[i].eng);
                 puts("");
-            }   
+            }
             break;
+        case 'q':
+            return 0;
         }
     }
 }
