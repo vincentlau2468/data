@@ -12,24 +12,23 @@ typedef struct student
 int main(void)
 {
     int sum;
-    int flag = 0;
     char choice;
-    char idcheck[100];
     float average[100];
     Student data[10];
     Student temp[10] = {0};
     scanf("%d", &sum);
     for (int i = 0; i < sum; i++)
     {
-        scanf(" %s", &data[i].id);
-        scanf(" %s", &data[i].name);
+        scanf(" %s", data[i].id);
+        scanf(" %s", data[i].name);
         scanf("%d", &data[i].math);
         scanf("%d", &data[i].code);
         scanf("%d", &data[i].eng);
     }
     for (int i = 0; i < sum; i++)
-    {   average[i]=0;
-        average[i] +=((data[i].math + data[i].code + data[i].eng));
+    {
+        average[i] = 0;
+        average[i] += ((data[i].math + data[i].code + data[i].eng));
         average[i] /= 3;
     }
     while (1)
@@ -47,6 +46,9 @@ int main(void)
         switch (choice)
         {
         case 'f':
+        {
+            char idcheck[100];
+            int flag = 0;
             printf("Student's ID:");
             scanf(" %s", idcheck);
             for (int i = 0; i < sum; i++)
@@ -57,16 +59,17 @@ int main(void)
                     printf("%s\t", data[i].name);
                     printf("%d\t", data[i].math);
                     printf("%d\t", data[i].code);
-                    printf("%d\t", data[i].eng);
+                    printf("%d\n", data[i].eng);
                     flag++;
                 }
-                if (flag == 0)
-                {
-                    printf("No such student");
+            }
+            if (flag == 0)
+            {
+                printf("No such student\n");
                     break;
                 }
-            }
             break;
+        }
 
         case 's':
             for (int i = 0; i < sum; i++)
@@ -81,7 +84,8 @@ int main(void)
             }
             break;
 
-        case 'b':{
+        case 'b':
+        {
 
             for (int i = 0; i < sum; i++)
             {
@@ -89,7 +93,8 @@ int main(void)
                 printf("%s\t", data[i].name);
                 printf("%.2f\n", average[i]);
             }
-            break;}
+            break;
+        }
         case 'a':
 
             for (int j = 0; j < sum; j++)
